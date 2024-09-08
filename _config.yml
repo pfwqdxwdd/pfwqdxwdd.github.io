@@ -96,9 +96,9 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: fluid
+theme: midnight-master
 
-remote-theme: hexo-theme-fluid
+remote-theme: hexo-theme-midnight-master
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
