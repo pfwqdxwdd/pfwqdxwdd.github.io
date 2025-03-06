@@ -9,28 +9,28 @@
     <meta name="description" content="前言：最近看了house of apple 2 的相关知识， 看到了roderick师傅在其博客中提到的例题oneday 拿来做了一下， 写下了这篇wp. 题目分析 checksec查看保护策略，保护全开  禁用了execve 查看ida      分析程序发现，题目根据key的大小来决定可以申请堆块的大小，并且申请堆块只能申请key * 0x100,key * 0x100+0x10 key*2这">
 <meta property="og:type" content="article">
 <meta property="og:title" content="oneday">
-<meta property="og:url" content="http://example.com/2024/10/27/oneday/index.html">
+<meta property="og:url" content="https://pfwqdxwdd.github.io/2024/10/27/oneday/index.html">
 <meta property="og:site_name" content="pfwqdxwdd">
 <meta property="og:description" content="前言：最近看了house of apple 2 的相关知识， 看到了roderick师傅在其博客中提到的例题oneday 拿来做了一下， 写下了这篇wp. 题目分析 checksec查看保护策略，保护全开  禁用了execve 查看ida      分析程序发现，题目根据key的大小来决定可以申请堆块的大小，并且申请堆块只能申请key * 0x100,key * 0x100+0x10 key*2这">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2024/10/27/oneday/image-20241027195747379.png">
-<meta property="og:image" content="http://example.com/2024/10/27/oneday/image-20241108133653756.png">
-<meta property="og:image" content="http://example.com/2024/10/27/oneday/image-20241027195856987.png">
-<meta property="og:image" content="http://example.com/2024/10/27/oneday/image-20241027200302236.png">
-<meta property="og:image" content="http://example.com/2024/10/27/oneday/image-20241027200313704.png">
-<meta property="og:image" content="http://example.com/2024/10/27/oneday/image-20241027200348158.png">
-<meta property="og:image" content="http://example.com/2024/10/27/oneday/image-20241027200455315.png">
-<meta property="og:image" content="http://example.com/2024/10/27/oneday/image-20241027200505974.png">
-<meta property="og:image" content="http://example.com/2024/10/27/oneday/image-20241108134821167.png">
-<meta property="og:image" content="http://example.com/2024/10/27/oneday/image-20241108135939876.png">
-<meta property="og:image" content="http://example.com/2024/10/27/oneday/image-20241108143047180.png">
-<meta property="og:image" content="http://example.com/2024/10/27/oneday/image-20241108143118946.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2024/10/27/oneday/image-20241027195747379.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2024/10/27/oneday/image-20241108133653756.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2024/10/27/oneday/image-20241027195856987.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2024/10/27/oneday/image-20241027200302236.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2024/10/27/oneday/image-20241027200313704.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2024/10/27/oneday/image-20241027200348158.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2024/10/27/oneday/image-20241027200455315.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2024/10/27/oneday/image-20241027200505974.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2024/10/27/oneday/image-20241108134821167.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2024/10/27/oneday/image-20241108135939876.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2024/10/27/oneday/image-20241108143047180.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2024/10/27/oneday/image-20241108143118946.png">
 <meta property="article:published_time" content="2024-10-27T12:19:57.000Z">
 <meta property="article:modified_time" content="2024-11-16T06:16:16.835Z">
 <meta property="article:author" content="pfwqdxwdd">
 <meta property="article:tag" content="house of apple2">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2024/10/27/oneday/image-20241027195747379.png">
+<meta name="twitter:image" content="https://pfwqdxwdd.github.io/2024/10/27/oneday/image-20241027195747379.png">
     
     
       
@@ -115,17 +115,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/27/oneday/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/27/oneday/&text=oneday"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/27/oneday/&title=oneday"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/27/oneday/&is_video=false&description=oneday"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=oneday&body=Check out this article: http://example.com/2024/10/27/oneday/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/27/oneday/&title=oneday"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/27/oneday/&title=oneday"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/27/oneday/&title=oneday"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/27/oneday/&title=oneday"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/27/oneday/&name=oneday&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/10/27/oneday/&t=oneday"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://pfwqdxwdd.github.io/2024/10/27/oneday/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&text=oneday"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&title=oneday"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&is_video=false&description=oneday"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=oneday&body=Check out this article: https://pfwqdxwdd.github.io/2024/10/27/oneday/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&title=oneday"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&title=oneday"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&title=oneday"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&title=oneday"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&name=oneday&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://pfwqdxwdd.github.io/2024/10/27/oneday/&t=oneday"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -234,6 +234,12 @@
   </div>
 </article>
 
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
 
 
         
@@ -269,17 +275,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/27/oneday/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/27/oneday/&text=oneday"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/27/oneday/&title=oneday"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/27/oneday/&is_video=false&description=oneday"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=oneday&body=Check out this article: http://example.com/2024/10/27/oneday/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/27/oneday/&title=oneday"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/27/oneday/&title=oneday"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/27/oneday/&title=oneday"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/27/oneday/&title=oneday"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/27/oneday/&name=oneday&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/10/27/oneday/&t=oneday"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://pfwqdxwdd.github.io/2024/10/27/oneday/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&text=oneday"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&title=oneday"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&is_video=false&description=oneday"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=oneday&body=Check out this article: https://pfwqdxwdd.github.io/2024/10/27/oneday/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&title=oneday"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&title=oneday"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&title=oneday"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&title=oneday"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://pfwqdxwdd.github.io/2024/10/27/oneday/&name=oneday&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://pfwqdxwdd.github.io/2024/10/27/oneday/&t=oneday"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -381,6 +387,18 @@
 <!-- Cloudflare Analytics -->
 
 <!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'pfwqdxwdd';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
 
 <!-- utterances Comments -->
 
