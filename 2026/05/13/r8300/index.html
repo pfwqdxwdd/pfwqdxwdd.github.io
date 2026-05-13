@@ -9,21 +9,21 @@
     <meta name="description" content="Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现漏洞在usr&#x2F;sbin&#x2F;upnpd这个文件中 启动这个文件会遇到很多问题  这个文件缺少nvram 需要手动编译 https:&#x2F;&#x2F;toolchains.bootlin.com&#x2F; 从这个网址下gcc：下ulibc版本 raw.githubusercontent.com&#x2F;ther">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现">
-<meta property="og:url" content="https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:url" content="https://pfwqdxwdd.github.io/2026/05/13/r8300/index.html">
 <meta property="og:site_name" content="pfwqdxwdd">
 <meta property="og:description" content="Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现漏洞在usr&#x2F;sbin&#x2F;upnpd这个文件中 启动这个文件会遇到很多问题  这个文件缺少nvram 需要手动编译 https:&#x2F;&#x2F;toolchains.bootlin.com&#x2F; 从这个网址下gcc：下ulibc版本 raw.githubusercontent.com&#x2F;ther">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/image-20260412184909294.png">
-<meta property="og:image" content="https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/image-20260412185123117.png">
-<meta property="og:image" content="https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/image-20260412194919571.png">
-<meta property="og:image" content="https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/image-20260412194944218.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2026/05/13/r8300/image-20260412184909294.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2026/05/13/r8300/image-20260412185123117.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2026/05/13/r8300/image-20260412194919571.png">
+<meta property="og:image" content="https://pfwqdxwdd.github.io/2026/05/13/r8300/image-20260412194944218.png">
 <meta property="article:published_time" content="2026-05-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-05-13T05:13:05.081Z">
+<meta property="article:modified_time" content="2026-05-13T05:18:28.243Z">
 <meta property="article:author" content="pfwqdxwdd">
 <meta property="article:tag" content="cve复现">
 <meta property="article:tag" content="iot">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/image-20260412184909294.png">
+<meta name="twitter:image" content="https://pfwqdxwdd.github.io/2026/05/13/r8300/image-20260412184909294.png">
     
     
       
@@ -108,24 +108,24 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&text=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&is_video=false&description=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现&body=Check out this article: https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&name=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&t=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://pfwqdxwdd.github.io/2026/05/13/r8300/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&text=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&is_video=false&description=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现&body=Check out this article: https://pfwqdxwdd.github.io/2026/05/13/r8300/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&name=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://pfwqdxwdd.github.io/2026/05/13/r8300/&t=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Netgear-Nighthawk-R8300-upnpd-PreAuth-RCE-%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Netgear-Nighthawk-R8300-upnpd-PreAuth-RCE-%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0"><span class="toc-number">1.</span> <span class="toc-text">Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现</span></a></li></ol>
       </div>
     
   </span>
@@ -175,9 +175,9 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id><a href="#" class="headerlink" title></a></h1><h1 id="Netgear-Nighthawk-R8300-upnpd-PreAuth-RCE-分析与复现"><a href="#Netgear-Nighthawk-R8300-upnpd-PreAuth-RCE-分析与复现" class="headerlink" title="Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"></a>Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现</h1><p>漏洞在usr&#x2F;sbin&#x2F;upnpd这个文件中</p>
+    <h1 id="Netgear-Nighthawk-R8300-upnpd-PreAuth-RCE-分析与复现"><a href="#Netgear-Nighthawk-R8300-upnpd-PreAuth-RCE-分析与复现" class="headerlink" title="Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"></a>Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现</h1><p>漏洞在usr&#x2F;sbin&#x2F;upnpd这个文件中</p>
 <p>启动这个文件会遇到很多问题</p>
-<p><img src="/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/image-20260412184909294.png" alt="image-20260412184909294"></p>
+<p><img src="/2026/05/13/r8300/image-20260412184909294.png" alt="image-20260412184909294"></p>
 <p>这个文件缺少nvram</p>
 <p>需要手动编译</p>
 <p><a target="_blank" rel="noopener" href="https://toolchains.bootlin.com/">https://toolchains.bootlin.com/</a></p>
@@ -189,7 +189,7 @@
 <p>编译后</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LD_PRELOAD=&quot;/nvram.so&quot; /usr/sbin/upnpd</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/image-20260412185123117.png" alt="image-20260412185123117"></p>
+<p><img src="/2026/05/13/r8300/image-20260412185123117.png" alt="image-20260412185123117"></p>
 <p>缺少这个符号</p>
 <p>grep -r查找有这个符合的文件，然后</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LD_PRELOAD=&quot;/lib/libdl.so.0 /nvram.so&quot; /usr/sbin/upnpd</span><br></pre></td></tr></table></figure>
@@ -212,8 +212,8 @@
 <p>二进制程序方面</p>
 <p>main-&gt; sub_1D020(v13);</p>
 <p>recvfrom限制0x1fff</p>
-<p><img src="/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/image-20260412194919571.png" alt="image-20260412194919571"></p>
-<p><img src="/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/image-20260412194944218.png" alt="image-20260412194944218"></p>
+<p><img src="/2026/05/13/r8300/image-20260412194919571.png" alt="image-20260412194919571"></p>
+<p><img src="/2026/05/13/r8300/image-20260412194944218.png" alt="image-20260412194944218"></p>
 <p>buf copy到buf-,    buf-离bp近可以造成栈溢出</p>
 
   </div>
@@ -254,23 +254,23 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Netgear-Nighthawk-R8300-upnpd-PreAuth-RCE-%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Netgear-Nighthawk-R8300-upnpd-PreAuth-RCE-%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0"><span class="toc-number">1.</span> <span class="toc-text">Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现</span></a></li></ol>
       </div>
     
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&text=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&is_video=false&description=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现&body=Check out this article: https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&name=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://pfwqdxwdd.github.io/2026/05/13/Netgear%20Nighthawk%20R8300%20upnpd%20PreAuth%20RCE%20%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/&t=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://pfwqdxwdd.github.io/2026/05/13/r8300/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&text=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&is_video=false&description=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现&body=Check out this article: https://pfwqdxwdd.github.io/2026/05/13/r8300/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&title=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://pfwqdxwdd.github.io/2026/05/13/r8300/&name=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://pfwqdxwdd.github.io/2026/05/13/r8300/&t=Netgear Nighthawk R8300 upnpd PreAuth RCE 分析与复现"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
